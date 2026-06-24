@@ -126,17 +126,25 @@ font-weight:bold;
 color:#fff;
 }
 
+#timerBox{
+margin-top:10px;
+background:#ffcc00;
+color:#111;
+padding:10px;
+border-radius:10px;
+font-weight:bold;
+text-align:center;
+}
+
 .predict-box{
 height:220px;
 background:#fff;
 border:4px solid #ff0000;
 border-radius:15px;
 margin:15px 0;
-
 display:flex;
 justify-content:center;
 align-items:center;
-
 font-size:18px;
 font-weight:bold;
 color:#ff0000;
@@ -146,7 +154,7 @@ line-height:1.6;
 }
 
 .change{
-width:100%;
+flex:1;
 background:#0099ff;
 color:white;
 font-size:16px;
@@ -171,82 +179,106 @@ bottom:20px;
 }
 
 </style>
-</head>
-
-<body>
+</head><body>
 
 <div class="page">
 
-<!-- PAGE 1 -->
+<!-- الصفحة 1 -->
+
 <div id="page1" class="card">
 
 <div class="top-btns">
-<button class="copy" onclick="copyCode()">Betr1</button>
 
-<a class="download" href="https://eg-1xbet.com/ar" target="_blank">
+<button class="copy" onclick="copyCode()">
+Betr1
+</button>
+
+<a class="download"
+href="https://eg-1xbet.com/ar"
+target="_blank">
 تحميل المنصة
 </a>
+
 </div>
 
 <div class="input-box">
-<input type="text" id="id" placeholder="ID">
+<input type="number" id="id" placeholder="ID">
 </div>
 
 <div class="input-box">
 <input type="password" id="pass" placeholder="Password">
 </div>
 
-<button class="confirm" onclick="login()">تأكيد</button>
+<button class="confirm" onclick="login()">
+تأكيد
+</button>
 
 <div id="errorBox"></div>
 
 </div>
 
-<!-- PAGE 2 -->
+<!-- الصفحة 2 -->
+
 <div id="page2" class="card">
 
 <div class="online">
+
 🟢 أشخاص أونلاين:
 <span id="online">127</span>
 
 <div class="show-id">
-ID: <span id="showIdTop"></span>
+ID:
+<span id="showIdTop"></span>
 </div>
+
+<div id="timerBox">
+⏳ الوقت المتبقي: 20:00
+</div>
+
 </div>
 
 <div class="predict-box">
 <span id="showBox"></span>
 </div>
 
+<div style="display:flex;gap:10px;">
+
 <button class="change" onclick="showPrediction()">
 تغيير التوقع
+</button>
+
+<button class="change">
+ريستارت
 </button>
 
 </div>
 
 </div>
 
-<div id="toast">✅ تم نسخ البروموكود</div>
+</div>
+
+<div id="toast">
+✅ تم نسخ البروموكود
+</div>
 
 <script>
 
 let count = 127;
 let savedId = "";
 
-// نسخ الكود
 function copyCode(){
+
 navigator.clipboard.writeText("Betr1");
 
 let toast = document.getElementById("toast");
+
 toast.classList.add("show");
 
 setTimeout(()=>{
 toast.classList.remove("show");
 },2000);
-}
 
-// تسجيل الدخول
-function login(){
+}function login(){
 
 let id = document.getElementById("id").value;
 let pass = document.getElementById("pass").value;
@@ -261,10 +293,26 @@ errorBox.innerText = "⚠️ يرجى إدخال البيانات";
 return;
 }
 
-// منع ID
+// منع ID محدد
 if(id === "1122774328"){
 errorBox.style.display = "block";
 errorBox.innerText = "⚠️ هذا ID متفعل عند حساب آخر";
+return;
+}
+
+// فحص مدة الانتظار
+let waitUntil = localStorage.getItem("waitUntil");
+
+if(waitUntil && Date.now() < Number(waitUntil)){
+
+let mins = Math.ceil(
+(Number(waitUntil) - Date.now()) / 60000
+);
+
+errorBox.style.display = "block";
+errorBox.innerText =
+"⏳ انتظار " + mins + " دقيقة لتشغيل مرة أخرى";
+
 return;
 }
 
@@ -277,26 +325,70 @@ document.getElementById("showIdTop").innerText = id;
 document.getElementById("page1").style.display = "none";
 document.getElementById("page2").style.display = "block";
 
+// عداد 20 دقيقة
+let timeLeft = 20 * 60;
+
+let timer = setInterval(()=>{
+
+let minutes = Math.floor(timeLeft / 60);
+let seconds = timeLeft % 60;
+
+document.getElementById("timerBox").innerText =
+"⏳ الوقت المتبقي: " +
+String(minutes).padStart(2,"0") +
+":" +
+String(seconds).padStart(2,"0");
+
+timeLeft--;
+
+if(timeLeft < 0){
+
+clearInterval(timer);localStorage.setItem(
+"waitUntil",
+Date.now() + (5 * 60 * 1000)
+);
+
+document.getElementById("page2").style.display = "none";
+document.getElementById("page1").style.display = "block";
+
+errorBox.style.display = "block";
+errorBox.innerText =
+"⏳ انتهت الجلسة، انتظر 5 دقائق لتشغيل مرة أخرى";
+
+}
+
+},1000);
+
 }else{
+
 errorBox.style.display = "block";
 errorBox.innerText = "⚠️ الباسورد غير صحيح";
-}
 
 }
 
-// أونلاين
-setInterval(() => {
-count += Math.floor(Math.random() * 7) - 3;
-if(count < 50) count = 50;
+}
+
+// عداد الأونلاين
+setInterval(()=>{
+
+count += Math.floor(Math.random()*7)-3;
+
+if(count < 50){
+count = 50;
+}
+
 document.getElementById("online").innerText = count;
-}, 2000);
 
-// التوقع
+},2000);
+
+// عرض الرسالة داخل المربع
 function showPrediction(){
+
 document.getElementById("showBox").innerHTML =
 "⚠️ هناك خطأ في السيرفر او غير متصل<br><br>" +
 "البروموكود: Betr1<br><br>" +
 "برجاء اضع هذا الرمز داخل التطبيق ثم اودع 500ج او 10$ ليتم التفعيل السيرفر";
+
 }
 
 </script>
