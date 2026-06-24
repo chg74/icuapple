@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Betr1</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Tahoma,sans-serif;
+}
+
+body{
+background:#111;
+color:#fff;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.page{
+width:100%;
+max-width:420px;
+}
+
+.card{
+background:#1b1b1b;
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 20px rgba(255,0,0,.25);
+}
+
+.top-btns{
+display:flex;
+gap:10px;
+margin-bottom:15px;
+}
+
+button,a{
+padding:12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+text-decoration:none;
+font-weight:bold;
+text-align:center;
+}
+
+.copy{
+flex:1;
+background:#0099ff;
+color:white;
+}
+
+.download{
+flex:1;
+background:#28a745;
+color:white;
+}
+
+.input-box{
+margin:12px 0;
+background:#ff0000;
+padding:3px;
+border-radius:14px;
+}
+
+.input-box input{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#fff;
+color:#111;
+font-size:16px;
+font-weight:bold;
+outline:none;
+}
+
+.confirm{
+width:100%;
+background:#ff0000;
+color:white;
+font-size:16px;
+}
+
+#page2{
+display:none;
+}
+
+.online{
+background:#222;
+padding:12px;
+border-radius:12px;
+font-size:18px;
+color:#00ff66;
+text-align:center;
+font-weight:bold;
+}
+
+.show-id{
+margin-top:8px;
+background:#111;
+padding:10px;
+border-radius:10px;
+border:1px solid #333;
+text-align:center;
+font-weight:bold;
+color:#fff;
+}
+
+.predict-box{
+height:220px;
+background:#fff;
+border:4px solid #ff0000;
+border-radius:15px;
+margin:15px 0;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:18px;
+font-weight:bold;
+color:#ff0000;
+padding:15px;
+text-align:center;
+line-height:1.6;
+}
+
+.change{
+width:100%;
+background:#0099ff;
+color:white;
+font-size:16px;
+}
+
+#toast{
+position:fixed;
+bottom:-100px;
+left:50%;
+transform:translateX(-50%);
+background:#00c853;
+color:white;
+padding:12px 25px;
+border-radius:10px;
+font-weight:bold;
+transition:.4s;
+z-index:9999;
+}
+
+#toast.show{
+bottom:20px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- الصفحة 1 -->
+<div id="page1" class="card">
+
+<div class="top-btns">
+<button class="copy" onclick="copyCode()">Betr1</button>
+
+<a class="download" href="https://eg-1xbet.com/ar" target="_blank">
+تحميل المنصة
+</a>
+</div>
+
+<div class="input-box">
+<input type="text" id="id" placeholder="ID">
+</div>
+
+<div class="input-box">
+<input type="password" id="pass" placeholder="Password">
+</div>
+
+<button class="confirm" onclick="login()">تأكيد</button>
+
+</div>
+
+<!-- الصفحة 2 -->
+<div id="page2" class="card">
+
+<div class="online">
+🟢 أشخاص أونلاين:
+<span id="online">127</span>
+
+<div class="show-id">
+ID: <span id="showIdTop"></span>
+</div>
+</div>
+
+<div class="predict-box">
+<span id="showId"></span>
+</div>
+
+<button class="change" onclick="showPrediction()">
+تغيير التوقع
+</button>
+
+</div>
+
+</div>
+
+<div id="toast">✅ تم نسخ البروموكود</div>
+
+<script>
+
+let count = 127;
+let savedId = "";
+
+function copyCode(){
+navigator.clipboard.writeText("Betr1");
+
+let toast = document.getElementById("toast");
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},2000);
+}
+
+function login(){
+
+let id = document.getElementById("id").value;
+let pass = document.getElementById("pass").value;
+
+if(id === "" || pass === ""){
+alert("يرجى إدخال البيانات");
+return;
+}
+
+if(pass === "Betr1"){
+
+savedId = id;
+
+document.getElementById("showIdTop").innerText = id;
+
+document.getElementById("page1").style.display = "none";
+document.getElementById("page2").style.display = "block";
+
+}else{
+alert("الباسورد غير صحيح");
+}
+
+}
+
+// online counter
+setInterval(() => {
+count += Math.floor(Math.random() * 7) - 3;
+if(count < 50) count = 50;
+document.getElementById("online").innerText = count;
+}, 2000);
+
+// 👇 الرسالة داخل المربع
+function showPrediction(){
+document.getElementById("showId").innerHTML =
+"⚠️ هناك خطأ في السيرفر او غير متصل<br><br>" +
+"البروموكود: Betr1<br><br>" +
+"برجاء اضع هذا الرمز داخل التطبيق ثم اودع 500ج او 10$ ليتم التفعيل السيرفر";
+}
+
+</script>
+
+</body>
+  </html>
