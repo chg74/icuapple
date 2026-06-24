@@ -90,6 +90,17 @@ color:white;
 font-size:16px;
 }
 
+#errorBox{
+margin-top:10px;
+background:#ffcc00;
+color:#111;
+padding:10px;
+border-radius:10px;
+font-weight:bold;
+display:none;
+text-align:center;
+}
+
 #page2{
 display:none;
 }
@@ -161,11 +172,12 @@ bottom:20px;
 
 </style>
 </head>
+
 <body>
 
 <div class="page">
 
-<!-- الصفحة 1 -->
+<!-- PAGE 1 -->
 <div id="page1" class="card">
 
 <div class="top-btns">
@@ -186,9 +198,11 @@ bottom:20px;
 
 <button class="confirm" onclick="login()">تأكيد</button>
 
+<div id="errorBox"></div>
+
 </div>
 
-<!-- الصفحة 2 -->
+<!-- PAGE 2 -->
 <div id="page2" class="card">
 
 <div class="online">
@@ -201,7 +215,7 @@ ID: <span id="showIdTop"></span>
 </div>
 
 <div class="predict-box">
-<span id="showId"></span>
+<span id="showBox"></span>
 </div>
 
 <button class="change" onclick="showPrediction()">
@@ -219,6 +233,7 @@ ID: <span id="showIdTop"></span>
 let count = 127;
 let savedId = "";
 
+// نسخ الكود
 function copyCode(){
 navigator.clipboard.writeText("Betr1");
 
@@ -230,13 +245,26 @@ toast.classList.remove("show");
 },2000);
 }
 
+// تسجيل الدخول
 function login(){
 
 let id = document.getElementById("id").value;
 let pass = document.getElementById("pass").value;
 
+let errorBox = document.getElementById("errorBox");
+
+errorBox.style.display = "none";
+
 if(id === "" || pass === ""){
-alert("يرجى إدخال البيانات");
+errorBox.style.display = "block";
+errorBox.innerText = "⚠️ يرجى إدخال البيانات";
+return;
+}
+
+// منع ID
+if(id === "1122774328"){
+errorBox.style.display = "block";
+errorBox.innerText = "⚠️ هذا ID متفعل عند حساب آخر";
 return;
 }
 
@@ -250,21 +278,22 @@ document.getElementById("page1").style.display = "none";
 document.getElementById("page2").style.display = "block";
 
 }else{
-alert("الباسورد غير صحيح");
+errorBox.style.display = "block";
+errorBox.innerText = "⚠️ الباسورد غير صحيح";
 }
 
 }
 
-// online counter
+// أونلاين
 setInterval(() => {
 count += Math.floor(Math.random() * 7) - 3;
 if(count < 50) count = 50;
 document.getElementById("online").innerText = count;
 }, 2000);
 
-// 👇 الرسالة داخل المربع
+// التوقع
 function showPrediction(){
-document.getElementById("showId").innerHTML =
+document.getElementById("showBox").innerHTML =
 "⚠️ هناك خطأ في السيرفر او غير متصل<br><br>" +
 "البروموكود: Betr1<br><br>" +
 "برجاء اضع هذا الرمز داخل التطبيق ثم اودع 500ج او 10$ ليتم التفعيل السيرفر";
@@ -273,4 +302,4 @@ document.getElementById("showId").innerHTML =
 </script>
 
 </body>
-  </html>
+</html>
