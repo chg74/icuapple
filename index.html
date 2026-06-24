@@ -103,9 +103,7 @@ text-align:center;
 
 #page2{
 display:none;
-}
-
-.online{
+}.online{
 background:#222;
 padding:12px;
 border-radius:12px;
@@ -180,7 +178,8 @@ bottom:20px;
 }
 
 </style>
-</head><body>
+</head>
+<body>
 
 <div class="page">
 
@@ -200,9 +199,7 @@ target="_blank">
 تحميل المنصة
 </a>
 
-</div>
-
-<div class="input-box">
+</div> <div class="input-box">
 <input type="number" id="id" placeholder="ID">
 </div>
 
@@ -279,16 +276,16 @@ setTimeout(()=>{
 toast.classList.remove("show");
 },2000);
 
-}function login(){
+}
+
+function login(){
 
 let id = document.getElementById("id").value;
 let pass = document.getElementById("pass").value;
 
 let errorBox = document.getElementById("errorBox");
 
-errorBox.style.display = "none";
-
-if(id === "" || pass === ""){
+errorBox.style.display = "none";if(id === "" || pass === ""){
 errorBox.style.display = "block";
 errorBox.innerText = "⚠️ يرجى إدخال البيانات";
 return;
@@ -298,28 +295,6 @@ return;
 if(id === "1122774328"){
 errorBox.style.display = "block";
 errorBox.innerText = "⚠️ هذا ID متفعل عند حساب آخر";
-return;
-}
-
-// فحص مدة الانتظار
-let waitUntil = null;
-
-try{
-    waitUntil = localStorage.getItem("waitUntil");
-}catch(e){
-    waitUntil = null;
-}
-
-if(waitUntil && Date.now() < Number(waitUntil)){
-
-let mins = Math.ceil(
-(Number(waitUntil) - Date.now()) / 60000
-)
-
-errorBox.style.display = "block";
-errorBox.innerText =
-"⏳ انتظار " + mins + " دقيقة لتشغيل مرة أخرى";
-
 return;
 }
 
@@ -352,19 +327,12 @@ if(timeLeft < 0){
 
 clearInterval(timer);
 
-try{
-    localStorage.setItem(
-        "waitUntil",
-        Date.now() + (5 * 60 * 1000)
-    );
-}catch(e){}
-
 document.getElementById("page2").style.display = "none";
 document.getElementById("page1").style.display = "block";
 
 errorBox.style.display = "block";
 errorBox.innerText =
-"⏳ انتهت الجلسة، انتظر 5 دقائق لتشغيل مرة أخرى";
+"⏳ انتهت الجلسة، يمكنك تسجيل الدخول مرة أخرى";
 
 }
 
@@ -377,9 +345,7 @@ errorBox.innerText = "⚠️ الباسورد غير صحيح";
 
 }
 
-}
-
-// عداد الأونلاين
+}// عداد الأونلاين
 setInterval(()=>{
 
 count += Math.floor(Math.random()*7)-3;
@@ -405,4 +371,4 @@ document.getElementById("showBox").innerHTML =
 </script>
 
 </body>
-</html> 
+</html>
