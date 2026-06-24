@@ -314,7 +314,7 @@ if(waitUntil && Date.now() < Number(waitUntil)){
 
 let mins = Math.ceil(
 (Number(waitUntil) - Date.now()) / 60000
-);
+)
 
 errorBox.style.display = "block";
 errorBox.innerText =
@@ -350,10 +350,14 @@ timeLeft--;
 
 if(timeLeft < 0){
 
-clearInterval(timer);localStorage.setItem(
-"waitUntil",
-Date.now() + (5 * 60 * 1000)
-);
+clearInterval(timer);
+
+try{
+    localStorage.setItem(
+        "waitUntil",
+        Date.now() + (5 * 60 * 1000)
+    );
+}catch(e){}
 
 document.getElementById("page2").style.display = "none";
 document.getElementById("page1").style.display = "block";
@@ -401,4 +405,4 @@ document.getElementById("showBox").innerHTML =
 </script>
 
 </body>
-</html>
+</html> 
