@@ -302,7 +302,13 @@ return;
 }
 
 // فحص مدة الانتظار
-let waitUntil = localStorage.getItem("waitUntil");
+let waitUntil = null;
+
+try{
+    waitUntil = localStorage.getItem("waitUntil");
+}catch(e){
+    waitUntil = null;
+}
 
 if(waitUntil && Date.now() < Number(waitUntil)){
 
@@ -317,7 +323,7 @@ errorBox.innerText =
 return;
 }
 
-if(pass.trim() === "Betr1"){
+if(pass === "Betr1"){
 
 savedId = id;
 
@@ -395,4 +401,4 @@ document.getElementById("showBox").innerHTML =
 </script>
 
 </body>
-  </html>
+</html>
