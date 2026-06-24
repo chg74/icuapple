@@ -183,8 +183,6 @@ bottom:20px;
 
 <div class="page">
 
-<!-- الصفحة 1 -->
-
 <div id="page1" class="card">
 
 <div class="top-btns">
@@ -199,7 +197,7 @@ target="_blank">
 تحميل المنصة
 </a>
 
-</div> <div class="input-box">
+</div><div class="input-box">
 <input type="number" id="id" placeholder="ID">
 </div>
 
@@ -214,8 +212,6 @@ target="_blank">
 <div id="errorBox"></div>
 
 </div>
-
-<!-- الصفحة 2 -->
 
 <div id="page2" class="card">
 
@@ -266,7 +262,9 @@ let savedId = "";
 
 function copyCode(){
 
+try{
 navigator.clipboard.writeText("Betr1");
+}catch(e){}
 
 let toast = document.getElementById("toast");
 
@@ -276,16 +274,16 @@ setTimeout(()=>{
 toast.classList.remove("show");
 },2000);
 
-}
-
-function login(){
+}function login(){
 
 let id = document.getElementById("id").value;
 let pass = document.getElementById("pass").value;
 
 let errorBox = document.getElementById("errorBox");
 
-errorBox.style.display = "none";if(id === "" || pass === ""){
+errorBox.style.display = "none";
+
+if(id === "" || pass === ""){
 errorBox.style.display = "block";
 errorBox.innerText = "⚠️ يرجى إدخال البيانات";
 return;
@@ -321,9 +319,7 @@ String(minutes).padStart(2,"0") +
 ":" +
 String(seconds).padStart(2,"0");
 
-timeLeft--;
-
-if(timeLeft < 0){
+timeLeft--;if(timeLeft < 0){
 
 clearInterval(timer);
 
@@ -345,7 +341,9 @@ errorBox.innerText = "⚠️ الباسورد غير صحيح";
 
 }
 
-}// عداد الأونلاين
+}
+
+// عداد الأونلاين
 setInterval(()=>{
 
 count += Math.floor(Math.random()*7)-3;
@@ -356,9 +354,7 @@ count = 50;
 
 document.getElementById("online").innerText = count;
 
-},2000);
-
-// عرض الرسالة داخل المربع
+},2000);// عرض الرسالة داخل المربع
 function showPrediction(){
 
 document.getElementById("showBox").innerHTML =
@@ -371,4 +367,4 @@ document.getElementById("showBox").innerHTML =
 </script>
 
 </body>
-</html>
+  </html>
